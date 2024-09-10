@@ -2,17 +2,22 @@ import express, {Request,Response} from "express";
 import mongoose, { mongo } from "mongoose";
 import dotenv from "dotenv";
 import Deck from "./models/deck"
+import cors from "cors";
+import { stringify } from "querystring";
+import getDeck from "./controllers/getDeckts.controller";
+import createDeck from "./controllers/createDeck.controller";
+import deleteDeck from "./controllers/deleteDeck.controller";
+
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
-
-
-app.get('/deck', (req: Request, res: Response) => {
-    const title = req.body;
-})
-
+app.get('/displayDeck', getDeck);
+app.delete("/deleteDeck/:id", deleteDeck);
+app.post('/createDeck', createDeck);
+app.post("/decks/")
 
 
 const mongoURL = process.env.URL as string;
