@@ -7,14 +7,16 @@ dotenv.config();
 const ObjectId = mongoose.Types.ObjectId;
 
 interface IDeck extends Document {
-    title: string
+    title: string,
+    cards: string[]
 }
 
-const DeckSchme = new Schema<IDeck>({
-    title: {type: String, required: true}
+const DeckSchmea = new Schema<IDeck>({
+    title: {type: String, required: true},
+    cards: [String]
 })
 
-const Deck = model<IDeck>("Deck", DeckSchme);
+const Deck = model<IDeck>("Deck", DeckSchmea);
 
 
 export default Deck;

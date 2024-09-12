@@ -7,6 +7,9 @@ import { stringify } from "querystring";
 import getDeck from "./controllers/getDeckts.controller";
 import createDeck from "./controllers/createDeck.controller";
 import deleteDeck from "./controllers/deleteDeck.controller";
+import createCardForDeck from "./controllers/createCardForDeck.controller";
+import getCardsForDeck from "./controllers/getCardsForDeck.controllers";
+import deleteCardForDeck from "./controllers/deleteCardForDeck.controller";
 
 dotenv.config();
 
@@ -17,8 +20,9 @@ app.use(cors());
 app.get('/displayDeck', getDeck);
 app.delete("/deleteDeck/:id", deleteDeck);
 app.post('/createDeck', createDeck);
-app.post("/decks/")
-
+app.post("/decks/:id/cards", createCardForDeck);
+app.get('/decks/:id/cards', getCardsForDeck)
+app.delete('/decks/:id/cards', deleteCardForDeck)
 
 const mongoURL = process.env.URL as string;
 mongoose.connect(mongoURL);
