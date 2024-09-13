@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { API_URL } from './config';
@@ -17,9 +18,14 @@ function Deck() {
     })
   }, [])
 
-  function handleDelete() {
-    
-
+  function handleDelete(cardText: string) {
+    // console.log(cardText)
+    axios.delete(`${API_URL}/decks/${params.deckId}/cards`, {data: {cardToBeDeleted: cardText}})
+    .then((data)=> {
+      // console.log("axios responce data", data);
+      alert(data.data.message)
+      setCards(cards.filter((card)=> cardText !== cardText));
+    })
   }
 
   function handleCardText (e:React.ChangeEvent<HTMLInputElement>) {
@@ -35,13 +41,13 @@ function Deck() {
     })
   }
 
-  console.log(cards);
+  // console.log(cards);
   return (
     <div>
       <div className='container'>
      {cards.map((card, index)=> (
           <div className="deck" key={index}>
-            <button className='deleteButton' onClick={() => handleDelete()}>🗑️</button>
+            <button className='deleteButton' onClick={() => handleDelete({card})}>🗑️</button>
             <h1>{card}</h1>
           </div>
         ))}

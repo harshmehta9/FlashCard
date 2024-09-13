@@ -5,7 +5,7 @@ app.use(express.json());
 
 const getCardsForDeck = async (req: Request, res: Response) => {
     const {id} = req.params;
-    console.log(id);
+    // console.log(id);
     const currentDeck = await Deck.findById(id);
     if(!currentDeck) return res.status(400).json("Deck Not Found");
     const DeckCards = currentDeck?.cards;
